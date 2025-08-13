@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+
+/* Solid-fill slider: make the track transparent so the input's gradient shows */
+.range-solid::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 8px;
+  border-radius: 9999px;
+}
+.range-solid::-moz-range-track {
+  background: transparent;
+  height: 8px;
+  border-radius: 9999px;
+}
+
+/* Thumb styling */
+.range-solid::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #4f46e5; /* indigo-600 */
+  border: 0;
+  box-shadow: 0 0 0 2px #fff;
+  margin-top: -8px; /* centers thumb on the 8px track */
+  cursor: pointer;
+}
+.range-solid::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #4f46e5;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
