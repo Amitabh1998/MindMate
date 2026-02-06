@@ -10,7 +10,6 @@ const MoodSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Fast lookups by user & time
 MoodSchema.index({ userId: 1, createdAt: 1 });
 
 export default mongoose.model("Mood", MoodSchema);
