@@ -361,12 +361,16 @@ router.post("/recommendations", auth, async (req, res) => {
       const looksHeavy =
         label === "Stressed" ||
         label === "Sad" ||
-        /burnout|overwhelmed|anxiety|panic|sleep|can[’']?t cope/.test(concernsText);
-      cards.push(
-        looksHeavy || level >= 80
-          ? { title: "Schedule Some Support", blurb: "Book time to talk it through.", to: "/schedule" }
-          : { title: "Daily Check-in", blurb: "Review your trend and celebrate a win.", to: "/dashboard" }
-      );
+        /burnout|overwhelmed|anxiety|panic|sleep|can['']?t cope/.test(concernsText);
+      
+      let finalCardConfig;
+      if (looksHeavy || level >= 80) {
+        finalCardConfig = { title: "Schedule Some Support", blurb: "Book time to talk it through.", to: "/schedule" };
+      } else {
+        finalCardConfig = { title: "Daily Check-in", blurb: "Review your trend and celebrate a win.", to: "/dashboard" };
+      }
+      
+      cards.push(finalCardConfig);
 
       return cards.slice(0, 3);
     })();
