@@ -136,65 +136,73 @@ export default function SetGoalsPage() {
         {/* Active goals */}
         <section className="mt-8">
           <h2 className="mb-3 text-base font-semibold">Active</h2>
-          {loading ? (
-            <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-500">Loading…</div>
-          ) : activeGoals.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-500">
-              No active goals yet—create one above.
-            </div>
-          ) : (
-            <ul className="space-y-4">
-              {activeGoals.map((g) => (
-                <li key={g._id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-sm font-semibold">{g.title}</h3>
-                      <p className="mt-1 text-xs text-slate-500">
-                        {g.dueAt ? `Due ${fmtDate(new Date(g.dueAt))}` : "No due date"}
-                      </p>
+          {(() => {
+            if (loading) {
+              return <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-500">Loading…</div>;
+            }
+            
+            if (activeGoals.length === 0) {
+              return (
+                <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-500">
+                  No active goals yet—create one above.
+                </div>
+              );
+            }
+            
+            return (
+              <ul className="space-y-4">
+                {activeGoals.map((g) => (
+                  <li key={g._id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-sm font-semibold">{g.title}</h3>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {g.dueAt ? `Due ${fmtDate(new Date(g.dueAt))}` : "No due date"}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => toggleComplete(g)}
+                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs hover:bg-slate-50"
+                          title="Mark complete"
+                        >
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Complete
+                        </button>
+                        <button
+                          onClick={() => remove(g)}
+                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs hover:bg-slate-50 text-rose-700"
+                          title="Delete goal"
+                        >
+                          <Trash2 className="h-4 w-4" /> Delete
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => toggleComplete(g)}
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs hover:bg-slate-50"
-                        title="Mark complete"
-                      >
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Complete
-                      </button>
-                      <button
-                        onClick={() => remove(g)}
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs hover:bg-slate-50 text-rose-700"
-                        title="Delete goal"
-                      >
-                        <Trash2 className="h-4 w-4" /> Delete
-                      </button>
+                    {/* Single, solid slider merged with progress bar */}
+                    <div className="mt-4 flex items-center gap-3">
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={g.progress ?? 0}
+                        onChange={(e) => onProgressChange(g, parseInt(e.target.value))}
+                        className="range-solid h-2 w-full appearance-none rounded-full"
+                        style={{
+                          background: `linear-gradient(to right, rgb(79 70 229) ${g.progress ?? 0}%, rgb(226 232 240) ${
+                            g.progress ?? 0
+                          }%)`,
+                        }}
+                      />
+                      <span className="w-10 text-right text-sm tabular-nums text-slate-700">
+                        {Math.round(g.progress ?? 0)}%
+                      </span>
                     </div>
-                  </div>
-
-                  {/* Single, solid slider merged with progress bar */}
-                  <div className="mt-4 flex items-center gap-3">
-                    <input
-                      type="range"
-                      min={0}
-                      max={100}
-                      value={g.progress ?? 0}
-                      onChange={(e) => onProgressChange(g, parseInt(e.target.value))}
-                      className="range-solid h-2 w-full appearance-none rounded-full"
-                      style={{
-                        background: `linear-gradient(to right, rgb(79 70 229) ${g.progress ?? 0}%, rgb(226 232 240) ${
-                          g.progress ?? 0
-                        }%)`,
-                      }}
-                    />
-                    <span className="w-10 text-right text-sm tabular-nums text-slate-700">
-                      {Math.round(g.progress ?? 0)}%
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
+                  </li>
+                ))}
+              </ul>
+            );
+          })()}
         </section>
 
         {/* Completed goals */}

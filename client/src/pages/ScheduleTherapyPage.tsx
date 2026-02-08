@@ -20,6 +20,16 @@ export default function ScheduleTherapyPage() {
     notes?: string;
   }>(null);
 
+  const getModeIcon = (modeType: Mode) => {
+    if (modeType === "Video") {
+      return <Video className="mr-1 inline h-4 w-4" />;
+    }
+    if (modeType === "Voice") {
+      return <Phone className="mr-1 inline h-4 w-4" />;
+    }
+    return null;
+  };
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !date || !time) return alert("Please fill in your name, date and time.");
@@ -88,11 +98,7 @@ export default function ScheduleTherapyPage() {
                           : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
                       ].join(" ")}
                     >
-                      {m === "Video" ? (
-                        <Video className="mr-1 inline h-4 w-4" />
-                      ) : m === "Voice" ? (
-                        <Phone className="mr-1 inline h-4 w-4" />
-                      ) : null}
+                      {getModeIcon(m)}
                       {m}
                     </button>
                   ))}
