@@ -354,7 +354,6 @@ export default function DashboardPage() {
                   <p className="text-2xl font-semibold">
                     Average: {avg != null ? avg.toFixed(1) : "—"}
                   </p>
-                  {/* Extract the nested ternary operation */}
                   {(() => {
                     const percentageColorClass = (deltaPct || 0) >= 0 ? "text-emerald-600" : "text-rose-600";
                     return (
