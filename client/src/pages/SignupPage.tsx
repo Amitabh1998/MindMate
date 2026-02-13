@@ -32,7 +32,7 @@ export default function SignupPage() {
       await registerUser(payload);
       alert("Account created! Please log in.");
       navigate("/login", { replace: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
       setErr(e?.message || "Registration failed");
     } finally {
       setLoading(false);
