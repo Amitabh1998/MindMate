@@ -55,7 +55,7 @@ app.use("/api/moods", moodsRoutes);
 app.use("/api", (_req, res) => res.status(404).json({ message: "Not found" }));
 
 /* Basic error handler (keeps JSON shape consistent) */
-app.use((err, _req, res, _next) => {
+app.use((err, _req, res) => {
   console.error(err);
   const status = err.status || 500;
   res.status(status).json({ message: err.message || "Server error" });
