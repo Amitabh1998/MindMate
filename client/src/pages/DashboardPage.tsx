@@ -91,8 +91,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     loadRecs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mood, level]);
+  }, [mood, level, loadRecs]);
 
   /* ---------- series (last 30 days) ---------- */
   const [dates, setDates] = useState<string[]>([]);
