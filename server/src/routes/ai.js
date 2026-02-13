@@ -385,7 +385,8 @@ router.post("/recommendations", auth, async (req, res) => {
     // Safe fallback
     const items = ["meditate", "goals", "schedule"].map((cat) => ({
       title:
-        cat === "meditate" ? "Mindful Breathing" : cat === "goals" ? "Tiny Step Goal" : "Schedule Some Support",
+        const title = cat === "meditate" ? "Mindful Breathing" : cat === "goals" ? "Tiny Step Goal" : "Schedule Some Support";
+      title,
       blurb:
         cat === "meditate"
           ? "A short 4–4 rhythm to refresh your focus."
