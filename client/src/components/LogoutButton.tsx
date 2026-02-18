@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+
 
 export default function LogoutButton() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function LogoutButton() {
   return (
     <button
       onClick={onLogout}
-      className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
+      className="rounded border border-slate-200 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
       aria-label="Log out"
     >
       Logout
