@@ -1,5 +1,4 @@
 // client/src/components/ChatAssistant.tsx
-import { useEffect, useRef, useState } from "react";
 import { chatAssistantStream, getChatHistory, type ChatMsg } from "../lib/api";
 
 type Props = { className?: string };
